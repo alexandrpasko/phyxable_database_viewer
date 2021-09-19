@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import classes from './SearchField.module.css';
 
 const SearchField = (props) => {
   const [inputValue, setInputValue] = useState("");
@@ -12,7 +13,7 @@ const SearchField = (props) => {
     <div>
       <input
         placeholder={props.placeholder}
-        className="search_input"
+        className={classes.search_input}
         onChange={handleChange}
         value={inputValue}
       ></input>

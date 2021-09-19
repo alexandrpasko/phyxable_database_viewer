@@ -1,0 +1,8 @@
+.fixed_div {
+    position: sticky;
+    top: 0;
+    padding: 1px 10px;
+    background-color: #fff;
+    z-index: 10;
+}
+  

@@ -1,0 +1,20 @@
+.search_input {
+    font-family: "Raleway", sans-serif;
+    width: 70%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    line-height: 2em;
+    padding-top: 0.8em;
+    margin-bottom: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 2px solid #000;
+}
+
+@media only screen and (max-width: 600px) {
+    .search_input {
+      width: 40%;
+    }
+  }

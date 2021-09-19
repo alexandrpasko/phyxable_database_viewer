@@ -1,0 +1,42 @@
+.button {
+  font: inherit;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 10px 10px 10px 0px;
+}
+
+button.danger {
+  background-color: rgb(146, 42, 42);
+}
+
+.button.success {
+  background-color: rgb(21, 107, 21);
+}
+
+.button:hover,
+.button:active {
+  opacity: 0.8;
+}
+
+.button:focus {
+  outline: none;
+}
+
+button:disabled,
+button:focus:disabled,
+button:hover:disabled,
+button:active:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.float_right{
+  float: right;
+  margin-top: -54px;
+  z-index: 150;
+}

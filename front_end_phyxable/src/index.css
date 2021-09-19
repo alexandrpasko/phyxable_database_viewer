@@ -13,3 +13,9 @@ body {
   background-color: #eee;
   box-sizing: border-box;
 }
+
+@media only screen and (max-width: 370px) {
+  body {
+    font-size: 0.8em;
+  }
+}
