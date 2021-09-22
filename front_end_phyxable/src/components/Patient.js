@@ -9,8 +9,6 @@ const Patient = (props) => {
       )
     ) {
       props.onDelete(props.patient._id);
-    } else {
-      console.log("not deleted");
     }
   };
 

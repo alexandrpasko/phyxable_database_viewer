@@ -12,7 +12,6 @@ function App() {
   const [patients, setPatients] = useState([]);
   const [filterEmail, setFilterEmail] = useState("");
   const [showAddPatientForm, setShowAddPatientForm] = useState(false);
-  const [flashMessageIsOpen, setFlashMessageIsOpen] = useState(false);
   const [flashMessage, setFlashMessage] = useState("");
 
   // get all patients from database
@@ -22,7 +21,7 @@ function App() {
       .then((data) => {
         data.length !== patients.length && setPatients(data);
       });
-  }, [patients, flashMessageIsOpen]);
+  }, [patients, flashMessage]);
 
   // show/hide a form to create a new user
   const toggleShowAddPatientForm = () =>
@@ -45,7 +44,7 @@ function App() {
   const createNewPatient = (email) => {
     fetch("http://localhost:3001/patients/", {
       method: "POST",
-      body: JSON.stringify({ email: email }),
+      body: JSON.stringify({ email }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -53,7 +52,6 @@ function App() {
       .then((res) => {
         res.json();
         setFlashMessage("New patient has been created");
-        setFlashMessageIsOpen("true");
       })
       .catch((error) => console.error("Error: ", error));
   };
@@ -63,50 +61,47 @@ function App() {
     fetch("http://localhost:3001/patients/" + id, {
       method: "DELETE",
     })
-      .then((res) => {
-        console.log("Success: ", res);
+      .then(() => {
         setFlashMessage("The patient has been deleted");
-        setFlashMessageIsOpen("true");
       })
       .catch((error) => console.error("Error: ", error));
   };
 
   //clear flash message function
-  const clearFlashMessage = () => {
-    setFlashMessage("");
-    setFlashMessageIsOpen(false);
-  };
+  const clearFlashMessage = () => setFlashMessage("");
 
   return (
-    <Container>
-      <FixedDiv>
-        <h1>List Of Patients - Phyxable Database Viewer</h1>
-        <SearchField
-          onChange={handleSearchEmail}
-          placeholder="Search by email"
+    <React.Fragment>
+      <Container>
+        <FixedDiv>
+          <h1>List Of Patients - Phyxable Database Viewer</h1>
+          <SearchField
+            onChange={handleSearchEmail}
+            placeholder="Search by email"
+          />
+          <Button onClick={toggleShowAddPatientForm} className="float_right">
+            Add Patient
+          </Button>
+        </FixedDiv>
+        <PatientList
+          patients={filterEmailList(patients)}
+          onDeletePatient={deletePatient}
         />
-        <Button onClick={toggleShowAddPatientForm} className="float_right">
-          Add Patient
-        </Button>
-      </FixedDiv>
-      <PatientList
-        patients={filterEmailList(patients)}
-        onDeletePatient={deletePatient}
-      />
-      {showAddPatientForm && (
-        <AddPatientForm
-          onClose={toggleShowAddPatientForm}
-          onAddNew={createNewPatient}
-        />
-      )}
-      {flashMessageIsOpen && (
+        {showAddPatientForm && (
+          <AddPatientForm
+            onClose={toggleShowAddPatientForm}
+            onAddNew={createNewPatient}
+          />
+        )}
+      </Container>
+      {!!flashMessage && (
         <FlashMessage
-          duration={4000}
+          duration={3000}
           message={flashMessage}
           onClose={clearFlashMessage}
         />
       )}
-    </Container>
+    </React.Fragment>
   );
 }
 

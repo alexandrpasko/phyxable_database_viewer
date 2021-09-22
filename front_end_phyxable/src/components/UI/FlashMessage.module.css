@@ -1,7 +1,7 @@
 .flash_message {
   background-color: rgb(60, 168, 60);
   color: #fff;
-  position: absolute;
+  position: fixed;
   right: 5%;
   top: -60px;
   z-index: 2000;
