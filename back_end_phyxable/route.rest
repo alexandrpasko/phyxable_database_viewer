@@ -1,16 +1,16 @@
-GET http://localhost:3000/patients
+GET http://localhost:3001/patients
 
 
 
 ###
 
-POST http://localhost:3000/patients
+POST http://localhost:3001/patients
 Content-Type: application/json
 
 {
-    "email": "alfiyasad@gmail.com"
+    "email": "test1@gmail.com"
 }
 
 ###
 
-DELETE http://localhost:3000/patients/6147fd61292adefe4a78e7ee
+DELETE http://localhost:3001/patients/614804a90b46066e2f91de43
