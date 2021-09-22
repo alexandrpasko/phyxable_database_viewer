@@ -6,28 +6,34 @@ import Button from "./components/UI/Button";
 import PatientList from "./components/PatientList";
 import SearchField from "./components/SearchField";
 import AddPatientForm from "./components/AddPatientForm";
+import FlashMessage from "./components/UI/FlashMessage";
 
 function App() {
   const [patients, setPatients] = useState([]);
   const [filterEmail, setFilterEmail] = useState("");
   const [showAddPatientForm, setShowAddPatientForm] = useState(false);
-  const [numOfOperations, setNumOfOperations] = useState(0);
+  const [flashMessageIsOpen, setFlashMessageIsOpen] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
 
+  // get all patients from database
   useEffect(() => {
     fetch("http://localhost:3001/patients/")
       .then((response) => response.json())
       .then((data) => {
         data.length !== patients.length && setPatients(data);
       });
-  }, [patients, numOfOperations]);
+  }, [patients, flashMessageIsOpen]);
 
+  // show/hide a form to create a new user
   const toggleShowAddPatientForm = () =>
     setShowAddPatientForm(!showAddPatientForm);
 
+  // save search term - trimmed and lowercase
   const handleSearchEmail = (value) => {
     setFilterEmail(value.toLowerCase().trim());
   };
 
+  //filter the list based on search string
   const filterEmailList = (allPatients) => {
     let filteredPatients = allPatients.filter((patient) => {
       return patient.email.toString().toLowerCase().includes(filterEmail);
@@ -46,9 +52,8 @@ function App() {
     })
       .then((res) => {
         res.json();
-        setNumOfOperations((prevState) => {
-          return prevState + 1;
-        });
+        setFlashMessage("New patient has been created");
+        setFlashMessageIsOpen("true");
       })
       .catch((error) => console.error("Error: ", error));
   };
@@ -60,11 +65,16 @@ function App() {
     })
       .then((res) => {
         console.log("Success: ", res);
-        setNumOfOperations((prevState) => {
-          return prevState + 1;
-        });
+        setFlashMessage("The patient has been deleted");
+        setFlashMessageIsOpen("true");
       })
       .catch((error) => console.error("Error: ", error));
+  };
+
+  //clear flash message function
+  const clearFlashMessage = () => {
+    setFlashMessage("");
+    setFlashMessageIsOpen(false);
   };
 
   return (
@@ -87,6 +97,13 @@ function App() {
         <AddPatientForm
           onClose={toggleShowAddPatientForm}
           onAddNew={createNewPatient}
+        />
+      )}
+      {flashMessageIsOpen && (
+        <FlashMessage
+          duration={4000}
+          message={flashMessage}
+          onClose={clearFlashMessage}
         />
       )}
     </Container>

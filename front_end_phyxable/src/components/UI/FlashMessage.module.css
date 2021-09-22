@@ -1,0 +1,32 @@
+.flash_message {
+  background-color: rgb(60, 168, 60);
+  color: #fff;
+  position: absolute;
+  right: 5%;
+  top: -60px;
+  z-index: 2000;
+  border-radius: 6px;
+  text-align: center;
+  padding: 10px 30px;
+  box-shadow: 1px 3px 10px -2px rgba(0, 0, 0, 0.63);
+  animation-name: show-message;
+  animation-duration: 3s;
+}
+
+@keyframes show-message {
+  0% {
+    top: -60px;
+  }
+  10% {
+    top: -60px;
+  }
+  20% {
+    top: 10px;
+  }
+  90% {
+    top: 10px;
+  }
+  100% {
+    top: -60px;
+  }
+}
